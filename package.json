@@ -1,0 +1,10 @@
+{
+  "name": "Mongo REST",
+  "description": "Express.js middleware for mapping monogodb models to REST resources",
+  "author": "Felix Milea-Ciobanu",
+  "dependencies": {
+		"express": ">= 4.7.1",
+		"body-parser": ">= 1.5.2",
+		"mongodb": ">= 1.4.7"
+  }
+}
