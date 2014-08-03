@@ -1,6 +1,6 @@
 [
 	{
-		"model": "statuses",
+		"model": "status",
 		"route": "tweets"	
 	}
 ]
