@@ -7,7 +7,7 @@ var app        = express();
 var bodyParser = require("body-parser");
 app.use(bodyParser());
 
-var mongoRest = require("./MongoRest");
+var mongoRest = require("./MongoRest").init(config);
 
 app.use("/api", mongoRest([{ model: "status", route: "tweets" }]));
 

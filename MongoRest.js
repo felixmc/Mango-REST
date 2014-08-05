@@ -13,11 +13,11 @@ function MongoRest(config) {
 		var handlerPath = "./handlers/" + name + ".js";
 
 		var model   = fs.existsSync(modelPath)
-							  ? new require(modelPath)(name)
+							  ? new MongoRest.Model(name, require(modelPath))
 								: new MongoRest.Model(name);
 	
 		var handler = fs.existsSync(handlerPath)
-								?	require(handlerPath)(model)
+								?	require(handlerPath)(MongoRest.Handler, model)
 								: MongoRest.Handler.crud(model);	
 		
 		var route = modelConfig.route || name;
@@ -28,7 +28,9 @@ function MongoRest(config) {
 	return router;
 };
 
-MongoRest.Model   = require("./model").init(require("./config"));
 MongoRest.Handler = require("./handler");
 
-module.exports = MongoRest;
+exports.init = function(config) {
+	MongoRest.Model = require("./model").init(config);
+	return MongoRest;
+};

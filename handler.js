@@ -6,8 +6,8 @@ var Handler = {
 		return express.Router();
 	},
 
-	crud: function(model) {
-		var router = this.empty();
+	crud: function(model, rt) {
+		var router = rt || this.empty();
 
 		router.get("/", this.getAll(model));
 		router.post("/", this.create(model));
@@ -29,7 +29,7 @@ var Handler = {
 
 	getAll: function(model) {
 		return function(req, res)	{
-			model.findAll(function(data) {
+			model.find({}, function(data) {
 				res.json(data);		
 			}, Handler.handleError(res));
 		}
