@@ -1,6 +1,6 @@
 {
   "name": "Mongo REST",
-  "description": "Express.js middleware for mapping monogodb models to REST resources",
+  "description": "simple, minimal library for mapping monogodb collections to REST interface",
   "author": "Felix Milea-Ciobanu",
   "dependencies": {
 		"express": ">= 4.7.1",

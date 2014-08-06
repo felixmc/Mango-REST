@@ -4,6 +4,9 @@ var fs      = require("fs");
 function MongoRest(config) {
 	var router = express.Router();
 
+	var bodyParser = require("body-parser");
+	router.use(bodyParser.json());
+
 	for (var i = 0; i < config.length; i++) {
 		var modelConfig = config[i];
 
@@ -33,4 +36,17 @@ MongoRest.Handler = require("./handler");
 exports.init = function(config) {
 	MongoRest.Model = require("./model").init(config);
 	return MongoRest;
+};
+
+MongoRest.Server = function() {
+	
+
+	return {
+		init: function() {
+			
+		},
+		
+
+
+	}
 };

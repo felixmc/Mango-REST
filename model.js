@@ -7,7 +7,9 @@ exports.init = function(_config) {
 };
 
 function Model(name, ext) {
-	var mongoHost = "mongodb://" + config.database_host + ":27017/" + config.database_name;
+	var mongoHost = typeof config === 'string'
+								? config
+								:	"mongodb://" + (config.user ? config.user + ":" + config.password + "@" : "")  + config.hostname + ":27017/" + config.database;
 
 	if (typeof ext === 'function') {
 		ext = ext(Model);
