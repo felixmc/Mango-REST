@@ -38,15 +38,11 @@ exports.init = function(config) {
 	return MongoRest;
 };
 
-MongoRest.Server = function() {
-	
+exports.Server = function(obj) {
+	var app = express();
 
-	return {
-		init: function() {
-			
-		},
+	exports.init(obj.mongoConfig)
+	app.use("/", MongoRest(obj.models));
 		
-
-
-	}
+	return app;
 };
