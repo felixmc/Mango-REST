@@ -1,10 +1,34 @@
 {
-  "name": "Mongo REST",
-  "description": "simple, minimal library for mapping monogodb collections to REST interface",
-  "author": "Felix Milea-Ciobanu",
+  "name": "MongoRest",
+  "version": "0.1.0",
+  "description": "minimal library for mapping mongodb collection to a REST interface",
+  "main": "MongoRest.js",
   "dependencies": {
-		"express": ">= 4.7.1",
-		"body-parser": ">= 1.5.2",
-		"mongodb": ">= 1.4.7"
-  }
+    "body-parser": "^1.5.2",
+    "custom-logger": "^0.2.1",
+    "express": "^4.7.2",
+    "mongodb": "^1.4.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/felixmc/Mongo-REST.git"
+  },
+  "keywords": [
+    "mongo",
+    "mongodb",
+    "rest",
+    "express",
+    "server",
+    "crud"
+  ],
+  "author": "Felix Milea-Ciobanu <felixmilea@gmail.com> (http://felixmilea.com/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felixmc/Mongo-REST/issues"
+  },
+  "homepage": "https://github.com/felixmc/Mongo-REST"
 }

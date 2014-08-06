@@ -10,16 +10,13 @@ function MongoRest(config) {
 	for (var i = 0; i < config.length; i++) {
 		var modelConfig = config[i];
 
-		var name = modelConfig.model;
+		var name = modelConfig.name;
 
-		var modelPath   = "./models/" + name + ".js";
-		var handlerPath = "./handlers/" + name + ".js";
-
-		var model   = fs.existsSync(modelPath)
+		var model   = modelConfig.model && fs.existsSync(modelConfig.model)
 							  ? new MongoRest.Model(name, require(modelPath))
 								: new MongoRest.Model(name);
 	
-		var handler = fs.existsSync(handlerPath)
+		var handler = modelConfig.handler && fs.existsSync(modelConfig.handler)
 								?	require(handlerPath)(MongoRest.Handler, model)
 								: MongoRest.Handler.crud(model);	
 		
