@@ -1,5 +1,5 @@
-# MongoRest
-MongoRest is a minimal library for mapping monogodb collections to a REST service.
+# MangoRest
+MangoRest is a minimal library for mapping monogodb collections to a REST service.
 
 
 ## Example
@@ -69,7 +69,7 @@ MongoDB can be configured two ways: as an object with a `host` and `database` pr
 Or as a MongoDB connection string: `mongodb://admin:pass@localhost:27017/mydb`
 
 ### Collection Config
-MongoRest takes in MongoDB collections to REST-ify as an array of objects. The objects have the following properties:
+MangoRest takes in MongoDB collections to REST-ify as an array of objects. The objects have the following properties:
 
 - **name** _(required)_: The name of the collection to be mapped to a REST service
 - **route** _(optional)_: The route to map the collection to. The default value is the collection's name
@@ -77,7 +77,7 @@ MongoRest takes in MongoDB collections to REST-ify as an array of objects. The o
 - **handler** _(optional)_: File path to handler to extend or overwrite default handler. A handler handles HTTP requests to retrieve or modify collection objects. The default handler handles routes for basic CRUD
 
 ## API
-While MongoRest provides CRUD REST functionality for MongoDB collections by default, this can be easily overwritten or expanded upon.
+While MangoRest provides CRUD REST functionality for MongoDB collections by default, this can be easily overwritten or expanded upon.
 
 ### Model
 Here is how to extend the default Model (models can only be extended and not overwritten):
