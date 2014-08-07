@@ -80,7 +80,7 @@ MongoRest takes in MongoDB collections to REST-ify as an array of objects. The o
 While MongoRest provides CRUD REST functionality for MongoDB collections by default, this can be easily overwritten or expanded upon.
 
 ### Model
-Here is how to extend the default Model:
+Here is how to extend the default Model (models can only be extended and not overwritten):
 
 ```javascript
 module.exports = function(Model) {
@@ -143,5 +143,27 @@ Below is the public interface of the Model object:
   - *error* Function(err): callback called when MongoDB operation failed. takes in error message string 
 
 ### Handler
+This is how to create or extend a handler:
+
+```javascript
+module.exports = function(Handler, model) {
+	// new handler with no routes
+	var handler = Handler.empty();
+
+	// handle a new path
+	handler.get("/author/:name", function(req, res) {
+		model.findByAuthor(req.params.name, function(data) {
+			res.json(data);
+		}, Handler.handleError(res));
+	});
+
+	// add basic CRUD handling to the handler
+	handler = Handler.crud(model, handler);
+
+	return handler;
+};
+```
+
+Creating a new handler requires defining a function that takes in the Handler object and model and retuns
 
 
