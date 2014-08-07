@@ -101,41 +101,59 @@ Below is the public interface of the Model object:
 - **.collection(callback)**: loads the default collection associated with the model from the database
   - *callback* Function(database, collection): takes in references to the database and to the collection
 
+- - -
+
 - **.collection(collection, callback)**: loads a specified collection from the database
   - *collection* String: name of collection to load
   - *callback* Function(database, collection): takes in references to the database and to the collection
 
+- - -
+
 - **.ObjectID(id)**: parses a hexdecimal string and returns a MongoDB ObjectID
   - *id* String: id string for a MongoDB object
+
+- - -
 
 - **.response(success, error)**: takes in success and error callbacks for a MongoDB operation and retuns a single MongoDB callback that calls the success or error callbacks depending on the success of the MongoDB operation
   - *success* Function(obj): callback called if MongoDB operation is successful. takes in result object
   - *error* Function(err): callback called when MongoDB operation failed. takes in error message string 
+
+- - -
 
 - **.parse(obj, success, error)**: this function is defined as a fallback. it is recommended that inheriting models overwrite this method. Ideally, this method should ensure a give object is valid and strip it of any invalid properties, as well as doing any escaping and business logic validation. Error callback should be called if the object cannot be parsed to a valid model. It is used by the default create and update methods of the model. The default function returns success if the object is not null/undefined
   - *obj* Object: any JS object to be parsed
   - *success* Function(obj): callback called if parse is successful. takes in a result object
   - *error* Function(err): callback called when parsing failed. takes in error message string 
   
+- - -
+
 - **.find(options, success, error)**: finds all MongoDB documents from the default collection of this model according to the options passed in
   - *options* Object: used to filter objects in the current collection. same functionality as the options object in MongoDB's collection.find()
   - *success* Function(obj): callback called if MongoDB operation is successful. takes in the find results
   - *error* Function(err): callback called when MongoDB operation failed. takes in error message string 
+
+- - -
 
 - **.findById(id, success, error)**: finds a single MongoDB document matching the given id
   - *id* ObjectID or string: used to find specific document
   - *success* Function(obj): callback called if MongoDB operation is successful. takes in the found object or null
   - *error* Function(err): callback called when MongoDB operation failed. takes in error message string 
 
+- - -
+
 - **.create(object, success, error)**: creates a new object in the collection associated with the model
   - *options* Object: object to be added
   - *success* Function(obj): callback called if MongoDB operation is successful. takes in the newly create object
   - *error* Function(err): callback called when MongoDB operation failed. takes in error message string 
 
+- - -
+
 - **.update(object, success, error)**: update an object in the collection associated with the model
   - *options* Object: object to be updated. must contain an _id property
   - *success* Function(obj): callback called if MongoDB operation is successful. takes in the updated object
   - *error* Function(err): callback called when MongoDB operation failed. takes in error message string 
+
+- - -
 
 - **.delete(id, success, error)**: delete an object from the collection associated with the model
   - *options* ObjectID or string: id of object to be deleted
@@ -171,32 +189,52 @@ Creating a new handler requires defining a function that takes in the Handler ob
 Below is the public interface of the Handler object:  
 - **.empty()**: returns an empty express.js router. used when overwriting the default handler
 
+- - -
+
 - **.crud(model)**: returns an express.js router that handles CRUD operation for the given model
   - *model* Model: model associated with a MongoDB collection
+
+- - -
 
 - **.crud(model, router)**: adds functionality to an express.js router that handles CRUD operation for the given model
   - *model* Model: model associated with a MongoDB collection
   - *router* express.js router: an express.js router to add the CRUD functionality to
 
+- - -
+
 - **.handleError(res)**: returns an error callback that returns 500 status code
   - *res* express.js response: response object to use to return the error
+
+- - -
 
 - **.id()**: returns a string representing the URL pattern for a MongoDB id
 
+- - -
+
 - **.handleError(res)**: returns an error callback that returns 500 status code
   - *res* express.js response: response object to use to return the error
+
+- - -
 
 - **.getAll(model)**: returns an express.js router callback that handles getAll CRUD functionality for the given model
   - *model* Model: model associated with a MongoDB collection
 
+- - -
+
 - **.getById(model)**: returns an express.js router callback that handles getById CRUD functionality for the given model
   - *model* Model: model associated with a MongoDB collection
-  - 
+
+- - -
+
 - **.create(model)**: returns an express.js router callback that handles create CRUD functionality for the given model
   - *model* Model: model associated with a MongoDB collection
 
+- - -
+
 - **.update(model)**: returns an express.js router callback that handles update CRUD functionality for the given model
   - *model* Model: model associated with a MongoDB collection
+
+- - -
 
 - **.delete(model)**: returns an express.js router callback that handles delete CRUD functionality for the given model
   - *model* Model: model associated with a MongoDB collection
