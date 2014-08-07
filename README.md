@@ -18,9 +18,9 @@ var config = {
   ]
 };
 
-var mongoRest = require("MongoRest").Server(config);
+var mangoRest = require("mango-rest").Server(config);
 
-mongoRest.listen(3000);
+mangoRest.listen(3000);
 ```
 
 Same as above, but as express.js middleware, which can afford more customization:
@@ -37,9 +37,9 @@ var models = [
 ];
 
 var app = require("express")();
-var mongoRest = require("MongoRest").init(mongoConfig);
+var mangoRest = require("mango-rest").init(mongoConfig);
 
-app.use("/", mongoRest(models));
+app.use("/", mangoRest(models));
 
 app.listen(3000);
 ```

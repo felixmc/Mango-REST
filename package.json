@@ -1,8 +1,8 @@
 {
-  "name": "MongoRest",
+  "name": "mango-rest",
   "version": "0.1.0",
   "description": "minimal library for mapping mongodb collections to a REST service",
-  "main": "MongoRest.js",
+  "main": "MangoRest.js",
   "dependencies": {
     "body-parser": "^1.5.2",
     "custom-logger": "^0.2.1",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/felixmc/Mongo-REST.git"
+    "url": "https://github.com/felixmc/Mango-REST.git"
   },
   "keywords": [
     "mongo",
@@ -28,7 +28,7 @@
   "author": "Felix Milea-Ciobanu <felixmilea@gmail.com> (http://felixmilea.com/)",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/felixmc/Mongo-REST/issues"
+    "url": "https://github.com/felixmc/Mango-REST/issues"
   },
-  "homepage": "https://github.com/felixmc/Mongo-REST"
+  "homepage": "https://github.com/felixmc/Mango-REST"
 }
