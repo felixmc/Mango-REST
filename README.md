@@ -53,5 +53,95 @@ Both of the above code samples provide the same REST functionality:
 `DELETE` to `/comments/:id` and `/posts:id` where `:id` is a MongoDB id string to delete an object  
 
 
-## MongoDB Config
+## Config
+
+### MongoDB Connection Config
 MongoDB can be configured two ways: as an object with a `host` and `database` property and optional `username` and `password` properties:
+```json
+{
+  host: "localhost",
+  database: "mydb",
+  username: "admin",
+  password: "pass"
+}
+```
+
+Or as a MongoDB connection string: `mongodb://admin:pass@localhost:27017/mydb`
+
+### Collection Config
+MongoRest takes in MongoDB collections to REST-ify as an array of objects. The objects have the following properties:
+
+- **name** _(required)_: The name of the collection to be mapped to a REST service
+- **route** _(optional)_: The route to map the collection to. The default value is the collection's name
+- **model** _(optional)_: File path to model that adds functionality for retrieving or modifying collection objects. Used by handler to perform data operations. Default model provides basic CRUD functionality
+- **handler** _(optional)_: File path to handler to extend or overwrite default handler. A handler handles HTTP requests to retrieve or modify collection objects. The default handler handles routes for basic CRUD
+
+## API
+While MongoRest provides CRUD REST functionality for MongoDB collections by default, this can be easily overwritten or expanded upon.
+
+### Model
+Here is how to extend the default Model:
+
+```javascript
+module.exports = function(Model) {
+
+	return {
+		findByAuthor: function(author, success, error) {
+			this.collection(function(db, col) {
+				col.find({ 'author': author }).toArray(Model.response(success, error));
+			});
+		}
+	}
+};
+```
+
+Extending a Model requires defining a function that takes in the Model object and retuns an object of functions or properties that are to be added to the model for a particular collection. The above example illustrates how to add a "findByAuthor" method for the Model associated with a collection of post objects. This new method is accessible from the model passed to the handler.
+
+Below is the public interface of the Model object:  
+- **.collection(callback)**: loads the default collection associated with the model from the database
+  - *callback* Function(database, collection): takes in references to the database and to the collection
+
+- **.collection(collection, callback)**: loads a specified collection from the database
+  - *collection* String: name of collection to load
+  - *callback* Function(database, collection): takes in references to the database and to the collection
+
+- **.ObjectID(id)**: parses a hexdecimal string and returns a MongoDB ObjectID
+  - *id* String: id string for a MongoDB object
+
+- **.response(success, error)**: takes in success and error callbacks for a MongoDB operation and retuns a single MongoDB callback that calls the success or error callbacks depending on the success of the MongoDB operation
+  - *success* Function(obj): callback called if MongoDB operation is successful. takes in result object
+  - *error* Function(err): callback called when MongoDB operation failed. takes in error message string 
+
+- **.parse(obj, success, error)**: this function is defined as a fallback. it is recommended that inheriting models overwrite this method. Ideally, this method should ensure a give object is valid and strip it of any invalid properties, as well as doing any escaping and business logic validation. Error callback should be called if the object cannot be parsed to a valid model. It is used by the default create and update methods of the model. The default function returns success if the object is not null/undefined
+  - *obj* Object: any JS object to be parsed
+  - *success* Function(obj): callback called if parse is successful. takes in a result object
+  - *error* Function(err): callback called when parsing failed. takes in error message string 
+  
+- **.find(options, success, error)**: finds all MongoDB documents from the default collection of this model according to the options passed in
+  - *options* Object: used to filter objects in the current collection. same functionality as the options object in MongoDB's collection.find()
+  - *success* Function(obj): callback called if MongoDB operation is successful. takes in the find results
+  - *error* Function(err): callback called when MongoDB operation failed. takes in error message string 
+
+- **.findById(id, success, error)**: finds a single MongoDB document matching the given id
+  - *id* ObjectID or string: used to find specific document
+  - *success* Function(obj): callback called if MongoDB operation is successful. takes in the found object or null
+  - *error* Function(err): callback called when MongoDB operation failed. takes in error message string 
+
+- **.create(object, success, error)**: creates a new object in the collection associated with the model
+  - *options* Object: object to be added
+  - *success* Function(obj): callback called if MongoDB operation is successful. takes in the newly create object
+  - *error* Function(err): callback called when MongoDB operation failed. takes in error message string 
+
+- **.update(object, success, error)**: update an object in the collection associated with the model
+  - *options* Object: object to be updated. must contain an _id property
+  - *success* Function(obj): callback called if MongoDB operation is successful. takes in the updated object
+  - *error* Function(err): callback called when MongoDB operation failed. takes in error message string 
+
+- **.delete(id, success, error)**: delete an object from the collection associated with the model
+  - *options* ObjectID or string: id of object to be deleted
+  - *success* Function(): callback called if MongoDB operation is successful
+  - *error* Function(err): callback called when MongoDB operation failed. takes in error message string 
+
+### Handler
+
+
