@@ -147,23 +147,56 @@ This is how to create or extend a handler:
 
 ```javascript
 module.exports = function(Handler, model) {
-	// new handler with no routes
-	var handler = Handler.empty();
+	// new router with no routes
+	var router = Handler.empty();
 
 	// handle a new path
-	handler.get("/author/:name", function(req, res) {
+	router.get("/author/:name", function(req, res) {
 		model.findByAuthor(req.params.name, function(data) {
 			res.json(data);
 		}, Handler.handleError(res));
 	});
 
 	// add basic CRUD handling to the handler
-	handler = Handler.crud(model, handler);
+	Handler.crud(model, router);
 
-	return handler;
+	return router;
 };
 ```
 
-Creating a new handler requires defining a function that takes in the Handler object and model and retuns
+A handler is essentially an abstraction of an express.js router.
 
+Creating a new handler requires defining a function that takes in the Handler object and a model associated with a collection and retuns an express.js router. `Handler.empty()` returns an empty router (used to overwrite the default router) while `Handler.crud()` attaches CRUD methods for the given model to a router (used to extend the default handler).
 
+Below is the public interface of the Handler object:  
+- **.empty()**: returns an empty express.js router. used when overwriting the default handler
+
+- **.crud(model)**: returns an express.js router that handles CRUD operation for the given model
+  - *model* Model: model associated with a MongoDB collection
+
+- **.crud(model, router)**: adds functionality to an express.js router that handles CRUD operation for the given model
+  - *model* Model: model associated with a MongoDB collection
+  - *router* express.js router: an express.js router to add the CRUD functionality to
+
+- **.handleError(res)**: returns an error callback that returns 500 status code
+  - *res* express.js response: response object to use to return the error
+
+- **.id()**: returns a string representing the URL pattern for a MongoDB id
+
+- **.handleError(res)**: returns an error callback that returns 500 status code
+  - *res* express.js response: response object to use to return the error
+
+- **.getAll(model)**: returns an express.js router callback that handles getAll CRUD functionality for the given model
+  - *model* Model: model associated with a MongoDB collection
+
+- **.getById(model)**: returns an express.js router callback that handles getById CRUD functionality for the given model
+  - *model* Model: model associated with a MongoDB collection
+  - 
+- **.create(model)**: returns an express.js router callback that handles create CRUD functionality for the given model
+  - *model* Model: model associated with a MongoDB collection
+
+- **.update(model)**: returns an express.js router callback that handles update CRUD functionality for the given model
+  - *model* Model: model associated with a MongoDB collection
+
+- **.delete(model)**: returns an express.js router callback that handles delete CRUD functionality for the given model
+  - *model* Model: model associated with a MongoDB collection
