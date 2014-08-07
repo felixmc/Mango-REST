@@ -1,7 +1,7 @@
 {
   "name": "MongoRest",
   "version": "0.1.0",
-  "description": "minimal library for mapping mongodb collection to a REST interface",
+  "description": "minimal library for mapping mongodb collections to a REST service",
   "main": "MongoRest.js",
   "dependencies": {
     "body-parser": "^1.5.2",

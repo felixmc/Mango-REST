@@ -18,7 +18,7 @@ var Handler = {
 		return router;
 	},
 
-	id: "/:id([0-9a-zA-Z]{24})",
+	id: "/:id([0-9a-f]{24})",
 
 	handleError: function(res) {
 		return function(err) {
