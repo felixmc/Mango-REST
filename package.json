@@ -1,6 +1,6 @@
 {
   "name": "mango-rest",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "minimal library for mapping mongodb collections to a REST service",
   "main": "MangoRest.js",
   "dependencies": {
