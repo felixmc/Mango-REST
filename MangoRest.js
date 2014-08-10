@@ -1,5 +1,6 @@
 var express = require("express");
 var fs      = require("fs");
+var path    = require("path");
 
 function MangoRest(config) {
 	var router = express.Router();
@@ -12,16 +13,13 @@ function MangoRest(config) {
 
 		var name = modelConfig.name;
 
-		var modelPath = "../../" + modelConfig.model;
-		var handlerPath = "../../" + modelConfig.handler;
-
-		var model   = modelConfig.model && fs.existsSync(modelPath)
-							  ? new MangoRest.Model(name, require(modelPath))
-								: new MangoRest.Model(name);
+		var model   = modelConfig.model && fs.existsSync(modelConfig.model)
+					? new MangoRest.Model(name, require(path.resolve(modelConfig.model)))
+					: new MangoRest.Model(name);
 	
-		var handler = modelConfig.handler && fs.existsSync(handlerPath)
-								?	require(handlerPath)(MangoRest.Handler, model)
-								: MangoRest.Handler.crud(model);	
+		var handler = modelConfig.handler && fs.existsSync(modelConfig.handler)
+					?	require(path.resolve(modelConfig.handler))(MangoRest.Handler, model)
+					: MangoRest.Handler.crud(model);	
 		
 		var route = modelConfig.route || name;
 

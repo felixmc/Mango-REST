@@ -23,7 +23,7 @@ var Handler = {
 	handleError: function(res) {
 		return function(err) {
 			console.log(err);
-			res.send(500, { error: err });
+			res.status(500).send({ error: err });
 		}
 	},
 
