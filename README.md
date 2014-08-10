@@ -13,8 +13,8 @@ var config = {
     database: "exampleDB"
   },
   models: [
-    { name: "userPosts", route: "posts" }
-    { name: "comments" }, // route inferred from name
+    { name: "userPosts", route: "posts" },
+    { name: "comments" } // route inferred from name
   ]
 };
 
@@ -32,8 +32,8 @@ var mongoConfig = {
 };
 
 var models = [
-  { name: "userPosts", route: "posts" }
-  { name: "comments" }, // route inferred from name
+  { name: "userPosts", route: "posts" },
+  { name: "comments" } // route inferred from name
 ];
 
 var app = require("express")();
