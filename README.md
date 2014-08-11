@@ -48,9 +48,9 @@ Both of the above code samples provide the same REST functionality:
 
 `GET` to `/comments` and `/posts` to return all objects of that type  
 `POST` to `/comments` and `/posts` to create a new object of that type  
-`GET` to `/comments/:id` and `/posts:id` where `:id` is a MongoDB id string to return an object  
-`PUT` to `/comments/:id` and `/posts:id` where `:id` is a MongoDB id string to update an object  
-`DELETE` to `/comments/:id` and `/posts:id` where `:id` is a MongoDB id string to delete an object  
+`GET` to `/comments/:id` and `/posts/:id` where `:id` is a MongoDB id string to return an object  
+`PUT` to `/comments/:id` and `/posts/:id` where `:id` is a MongoDB id string to update an object  
+`DELETE` to `/comments/:id` and `/posts/:id` where `:id` is a MongoDB id string to delete an object  
 
 
 ## Config
