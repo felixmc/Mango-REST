@@ -57,7 +57,7 @@ Both of the above code samples provide the same REST functionality:
 
 ### MongoDB Connection Config
 MongoDB can be configured two ways: as an object with a `host` and `database` property and optional `username` and `password` properties:
-```json
+```javascript
 {
   host: "localhost",
   database: "mydb",
